@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>child A</title>
+
+    <script>
+        const root = 'https://durbanow1.github.io/';
+
+        function loadIframe() {
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('src', root);
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+        }
+
+        function getCookies() {
+            document.querySelector('iframe').contentWindow.postMessage({ command: 'getCookies' }, '*');
+        }
+
+        function setCookie(name, value) {
+            document.querySelector('iframe').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
+        }
+
+        function requestStorageAccess() {
+            navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
+                if (res.state === 'granted') {
+                    document.requestStorageAccessFor(root);
+                } else if (res.state === 'prompt') {
+                    const btn = document.createElement('button');
+                    btn.textContent = 'Grant access';
+                    btn.addEventListener('click', () => {
+                        document.requestStorageAccessFor(root);
+                    });
+                    document.body.appendChild(btn);
+                }
+            });
+        }
+
+        window.addEventListener('message', (event) => {
+            console.log('Received shared cookies:', event.data);
+        });
+
+        window.onload = () => {
+            loadIframe();
+            setTimeout(() => requestStorageAccess(), 5000);
+
+            // const btn = document.createElement('button');
+            //     btn.textContent = 'Grant access';
+            //     btn.addEventListener('click', () => {
+            //         getCookies();
+            //     });
+            //     document.body.appendChild(btn);
+            // };
+        }
+    </script>
+</head>
+</html>
