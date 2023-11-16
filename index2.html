@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>root</title>
+
+    <script>
+        async function getCookies() {
+            let access = await document.hasStorageAccess();
+            if (access) {
+                return document.cookie;
+            }
+            throw new Error('No storage access');
+        }
+
+        async function setCookie(name, value) {
+            let access = await document.hasStorageAccess();
+            if (access) {
+                document.cookie = `${name}=${value}; SameSite=None; Secure`;
+                return;
+            }
+            throw new Error('No storage access');
+        }
+
+        window.addEventListener('message', (event) => {
+            if (event.data.command === 'getCookies') {
+                getCookies().then(cookies => event.source.postMessage(cookies, '*'));
+            }
+            if (event.data.command === 'setCookie') {
+                setCookie(event.data.name, event.data.value);
+            }
+        });
+    </script>
+</head>
+</html>
