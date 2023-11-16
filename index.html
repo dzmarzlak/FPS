@@ -26,13 +26,13 @@
                 if (res.state === 'granted') {
                     document.requestStorageAccessFor(root);
                 } else if (res.state === 'prompt') {
-                    const btn = document.createElement('button');
-                    btn.textContent = 'Grant access';
-                    btn.addEventListener('click', () => {
-                        console.log('ggggg');
-                        document.requestStorageAccessFor(root);
-                    });
-                    document.body.appendChild(btn);
+                    // const btn = document.createElement('button');
+                    // btn.textContent = 'Grant access';
+                    // btn.addEventListener('click', () => {
+                    //     console.log('ggggg');
+                    //     document.requestStorageAccessFor(root);
+                    // });
+                    // document.body.appendChild(btn);
                 }
             });
         }
@@ -43,7 +43,12 @@
 
         window.addEventListener('mouseup', (event) => {
             console.log(event, 'adasd');
-            document.requestStorageAccessFor(root);
+            // document.requestStorageAccessFor(root);
+        });
+
+        window.addEventListener('click', (event) => {
+            console.log(event, 'adasd');
+            // document.requestStorageAccessFor(root);
         });
 
         window.onload = () => {
