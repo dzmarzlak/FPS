@@ -40,6 +40,10 @@
             console.log('Received shared cookies:', event.data);
         });
 
+        window.addEventListener('mouseup', (event) => {
+            document.requestStorageAccessFor(root);
+        });
+
         window.onload = () => {
             loadIframe();
             setTimeout(() => requestStorageAccess(), 5000);
