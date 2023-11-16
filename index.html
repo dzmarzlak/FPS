@@ -48,7 +48,9 @@
 
         window.addEventListener('click', (event) => {
             console.log(event, 'adasd');
-            // document.requestStorageAccessFor(root);
+            if (event.target.id === 'onetrust-accept-btn-handler') {
+               document.requestStorageAccessFor(root); 
+            }
         });
 
         window.onload = () => {
