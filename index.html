@@ -29,7 +29,7 @@
         function clearOTCookies() {
             console.log('clear');
             OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
-            const script = document.getElementById('OTscript');
+            const script = document.querySelector('[data-domain-script]');
             document.head.removeChild(script);
         }
 
@@ -78,7 +78,7 @@
         }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
-<script id="OTscript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
 <script type="text/javascript">
 function OptanonWrapper() { }
 </script>
