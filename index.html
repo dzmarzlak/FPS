@@ -5,6 +5,7 @@
 
     <script>
         const root = 'https://durbanow1.github.io/';
+        const OTCookieNames = ['OptanonConsent', 'eupubconsent-v2', 'OptanonAlertBoxClosed'];
 
         function loadIframe() {
             const iframe = document.createElement('iframe');
@@ -21,19 +22,38 @@
             document.querySelector('iframe').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
         }
 
+        function checkOTCookies() {
+            return document.cookie.split(';').some(cookie => OTCookieNames.some(name => cookie.startsWith(name)));
+        }
+
+        function clearOTCookies() {
+            OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
+            const script = document.getElementById('OTscript');
+            document.head.removeChild(script);
+        }
+
         function requestStorageAccess() {
             navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
                 if (res.state === 'granted') {
                     document.requestStorageAccessFor(root);
                 } else if (res.state === 'prompt') {
-                    // const btn = document.createElement('button');
-                    // btn.textContent = 'Grant access';
-                    // btn.addEventListener('click', () => {
-                    //     document.requestStorageAccessFor(root);
-                    // });
-                    // document.body.appendChild(btn);
+                    if (checkOTCookies) {
+                        window.addEventListener('click', handleClick);
+                        const script = document.createElement('script');
+                        script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js'
+                        script.setAttribute('data-document-language', 'true');
+                        script.setAttribute('data-domain-script', '1310db55-16a0-4029-aee5-9253581c6a12-test');
+                        document.head.appendChild(script);
+                    }
                 }
             });
+        }
+
+        function handleClick(event) {
+            if (event.target.id === 'onetrust-accept-btn-handler') {
+               document.requestStorageAccessFor(root); 
+               window.removeEventListener('click', handleClick);
+            }
         }
 
         window.addEventListener('message', (event) => {
@@ -47,26 +67,15 @@
 
         window.addEventListener('click', (event) => {
             console.log(event, 'click');
-            if (event.target.id === 'onetrust-accept-btn-handler') {
-               document.requestStorageAccessFor(root); 
-            }
         });
 
         window.onload = () => {
             loadIframe();
-            setTimeout(() => requestStorageAccess(), 5000);
-
-            // const btn = document.createElement('button');
-            //     btn.textContent = 'Grant access';
-            //     btn.addEventListener('click', () => {
-            //         getCookies();
-            //     });
-            //     document.body.appendChild(btn);
-            // };
+            setTimeout(() => requestStorageAccess(), 0);
         }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
+<script id="OTscript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
 <script type="text/javascript">
 function OptanonWrapper() { }
 </script>
