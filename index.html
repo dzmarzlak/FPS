@@ -55,8 +55,9 @@
 
         function handleClick(event) {
             if (event.target.id === 'onetrust-accept-btn-handler') {
-               document.requestStorageAccessFor(root); 
-               window.removeEventListener('click', handleClick);
+                console.log('clicked');
+                document.requestStorageAccessFor(root); 
+                window.removeEventListener('click', handleClick);
             }
         }
 
@@ -75,7 +76,7 @@
 
         window.onload = () => {
             loadIframe();
-            setTimeout(() => requestStorageAccess(), 0);
+            setTimeout(() => requestStorageAccess(), 200);
         }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
