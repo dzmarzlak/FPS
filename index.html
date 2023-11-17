@@ -29,7 +29,6 @@
                     // const btn = document.createElement('button');
                     // btn.textContent = 'Grant access';
                     // btn.addEventListener('click', () => {
-                    //     console.log('ggggg');
                     //     document.requestStorageAccessFor(root);
                     // });
                     // document.body.appendChild(btn);
@@ -42,12 +41,12 @@
         });
 
         window.addEventListener('mouseup', (event) => {
-            console.log(event, 'adasd');
+            console.log(event, 'mouseup');
             // document.requestStorageAccessFor(root);
         });
 
         window.addEventListener('click', (event) => {
-            console.log(event, 'adasd');
+            console.log(event, 'click');
             if (event.target.id === 'onetrust-accept-btn-handler') {
                document.requestStorageAccessFor(root); 
             }
