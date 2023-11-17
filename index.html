@@ -27,6 +27,7 @@
         }
 
         function clearOTCookies() {
+            console.log('clear');
             OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
             const script = document.getElementById('OTscript');
             document.head.removeChild(script);
@@ -37,12 +38,14 @@
                 if (res.state === 'granted') {
                     document.requestStorageAccessFor(root);
                 } else if (res.state === 'prompt') {
+                    console.log('no access');
                     if (checkOTCookies) {
                         window.addEventListener('click', handleClick);
                         const script = document.createElement('script');
                         script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js'
                         script.setAttribute('data-document-language', 'true');
                         script.setAttribute('data-domain-script', '1310db55-16a0-4029-aee5-9253581c6a12-test');
+                        console.log('append script');
                         document.head.appendChild(script);
                     }
                 }
