@@ -9,17 +9,18 @@
 
         function loadIframe() {
             const iframe = document.createElement('iframe');
+            iframe.id = 'fps';
             iframe.setAttribute('src', root + 'FPS');
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
         }
 
         function getCookies() {
-            document.querySelector('iframe').contentWindow.postMessage({ command: 'getCookies' }, '*');
+            document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'getCookies' }, '*');
         }
 
         function setCookie(name, value) {
-            document.querySelector('iframe').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
+            document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
         }
 
         function checkOTCookies() {
