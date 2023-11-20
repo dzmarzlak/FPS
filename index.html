@@ -23,7 +23,7 @@
         }
 
         function checkOTCookies() {
-            return document.cookie.split(';').some(cookie => OTCookieNames.some(name => cookie.startsWith(name)));
+            return document.cookie.split(';').filter(cookie => OTCookieNames.some(name => cookie.startsWith(name))).length > 1;
         }
 
         function clearOTCookies() {
