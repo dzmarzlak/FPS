@@ -40,18 +40,18 @@
                 } else if (res.state === 'prompt') {
                     // window.addEventListener('click', () => {document.requestStorageAccessFor(root);});
                     console.log('no access');
-                    if (checkOTCookies()) {
-                        clearOTCookies();
-                        window.addEventListener('click', handleClick);
-                        const script = document.createElement('script');
-                        script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js'
-                        script.setAttribute('data-document-language', 'true');
-                        script.setAttribute('data-domain-script', '1310db55-16a0-4029-aee5-9253581c6a12-test');
-                        console.log('append script');
-                        document.head.appendChild(script);
-                    } else {
-                        window.addEventListener('click', handleClick);
-                    }
+                    // if (checkOTCookies()) {
+                    //     clearOTCookies();
+                    //     window.addEventListener('click', handleClick);
+                    //     const script = document.createElement('script');
+                    //     script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js'
+                    //     script.setAttribute('data-document-language', 'true');
+                    //     script.setAttribute('data-domain-script', '1310db55-16a0-4029-aee5-9253581c6a12-test');
+                    //     console.log('append script');
+                    //     document.head.appendChild(script);
+                    // } else {
+                    //     window.addEventListener('click', handleClick);
+                    // }
                 }
             });
         }
