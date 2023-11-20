@@ -37,6 +37,7 @@
         function requestStorageAccess() {
             navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
                 if (res.state === 'granted') {
+                    console.log('granted');
                     document.requestStorageAccessFor(root);
                 } else if (res.state === 'prompt') {
                     // window.addEventListener('click', () => {document.requestStorageAccessFor(root);});
