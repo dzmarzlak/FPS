@@ -40,7 +40,7 @@
                 } else if (res.state === 'prompt') {
                     // window.addEventListener('click', () => {document.requestStorageAccessFor(root);});
                     console.log('no access');
-                    if (checkOTCookies) {
+                    if (checkOTCookies()) {
                         clearOTCookies();
                         window.addEventListener('click', handleClick);
                         const script = document.createElement('script');
