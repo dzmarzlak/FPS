@@ -59,9 +59,14 @@
         function handleClick(event) {
             if (event.target.id === 'onetrust-accept-btn-handler') {
                 console.log('clicked');
-                document.requestStorageAccessFor(root); 
+                grantAccess();
                 window.removeEventListener('click', handleClick);
             }
+        }
+
+        function grantAccess() {
+            console.log('request for access');
+            document.requestStorageAccessFor(root); 
         }
 
         window.addEventListener('message', (event) => {
@@ -89,4 +94,7 @@ function OptanonWrapper() { }
 </script>
 <!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
 </head>
+<body>
+    <button onclick="grantAccess">Grant access</button>
+</body>
 </html>
