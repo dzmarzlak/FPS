@@ -73,9 +73,10 @@
             }
         }
 
-        function grantAccess() {
+        async function grantAccess() {
             console.log('request for access');
-            document.requestStorageAccessFor(root); 
+            const res = await document.requestStorageAccessFor(root);
+            console.log(res, 'res');
         }
 
         window.addEventListener('message', (event) => {
