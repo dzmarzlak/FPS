@@ -38,8 +38,8 @@
                 if (res.state === 'granted') {
                     document.requestStorageAccessFor(root);
                 } else if (res.state === 'prompt') {
+                    window.addEventListener('click', () => {document.requestStorageAccessFor(root);});
                     console.log('no access');
-                    window.addEventListener('mousemove', handleMouseMove);
                     // if (checkOTCookies) {
                     //     clearOTCookies();
                     //     window.addEventListener('click', handleClick);
@@ -60,11 +60,6 @@
                 document.requestStorageAccessFor(root); 
                 window.removeEventListener('click', handleClick);
             }
-        }
-
-        function handleMouseMove(event) {
-            document.requestStorageAccessFor(root); 
-            window.removeEventListener('mousemove', handleMouseMove);
         }
 
         window.addEventListener('message', (event) => {
