@@ -16,6 +16,13 @@
         }
 
         function getCookies() {
+            navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
+                if (res.state === 'granted') {
+                    console.log('granted');
+                } else if (res.state === 'prompt') {
+                    console.log('no access');
+                }
+            });
             document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'getCookies' }, '*');
         }
 
