@@ -102,8 +102,8 @@
 <!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script> -->
 <script type="text/javascript">
 function OptanonWrapper(e) {console.log(e, 'wprapper executed') 
-OneTrust.OnConsentChanged(function(ev) {console.log(ev)})
-grantAccess()
+OneTrust.OnConsentChanged(function(ev) { grantAccess(); console.log(ev)})
+
 }
 </script>
 <!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
