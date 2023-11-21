@@ -41,6 +41,8 @@
             OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
         }
 
+        function onOTLoad()
+
         function requestStorageAccess() {
             navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
                 if (res.state === 'granted') {
@@ -101,12 +103,7 @@
 <script type="text/javascript">
 function OptanonWrapper(e) {console.log(e, 'wprapper executed') 
 OneTrust.OnConsentChanged(function(ev) {console.log(ev)})
-const org = OneTrust.AllowAll;
-OneTrust.AllowAll = function(...args) {
-    console.log('allow All');
-    grantAccess();
-    return org(...arg);
-}
+grantAccess()
 }
 </script>
 <!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
