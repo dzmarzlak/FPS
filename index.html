@@ -50,6 +50,7 @@
                     }
                 });
                 requestStorageAccess();
+                loaded = true;
             }
         }
 
@@ -63,6 +64,7 @@
                     console.log('no access');
                     if (checkOTCookies()) {
                         clearOTCookies();
+                        OneTrust.InitializeBanner()
                         OneTrust.LoadBanner();
                     }
                 }
@@ -76,36 +78,34 @@
             });
         }
 
-        function handleClick(event) {
-            if (event.target.id === 'onetrust-accept-btn-handler') {
-                console.log('clicked');
-                // grantAccess();
-                window.removeEventListener('click', handleClick);
-            }
-        }
+        // function handleClick(event) {
+        //     if (event.target.id === 'onetrust-accept-btn-handler') {
+        //         console.log('clicked');
+        //         // grantAccess();
+        //         window.removeEventListener('click', handleClick);
+        //     }
+        // }
 
         async function grantAccess() {
             console.log('request for access');
             const res = await document.requestStorageAccessFor(root);
-            console.log(res, 'res');
         }
 
         window.addEventListener('message', (event) => {
             console.log('Received shared cookies:', event.data);
         });
 
-        window.addEventListener('mouseup', (event) => {
-            console.log(event, 'mouseup');
-            // document.requestStorageAccessFor(root);
-        });
+        // window.addEventListener('mouseup', (event) => {
+        //     console.log(event, 'mouseup');
+        //     // document.requestStorageAccessFor(root);
+        // });
 
-        window.addEventListener('click', (event) => {
-            console.log(event, 'click');
-        });
+        // window.addEventListener('click', (event) => {
+        //     console.log(event, 'click');
+        // });
 
         window.onload = () => {
             loadIframe();
-            // setTimeout(() => requestStorageAccess(), 2000);
         }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
