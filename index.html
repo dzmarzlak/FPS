@@ -44,7 +44,7 @@
 
         function onOTLoad() {
             if (!loaded) {
-                OneTrust.OnConsentChanged(function(event) {
+                window.OneTrust.OnConsentChanged(function(event) {
                     if (event.detail) {
                         grantAccess();
                     }
