@@ -45,6 +45,7 @@
         function onOTLoad() {
             if (!loaded) {
                 window.OneTrust.OnConsentChanged(function(event) {
+                    console.log(event);
                     if (event.detail) {
                         grantAccess();
                         loadIframe();
