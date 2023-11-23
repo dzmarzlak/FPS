@@ -47,6 +47,7 @@
                 window.OneTrust.OnConsentChanged(function(event) {
                     if (event.detail) {
                         grantAccess();
+                        loadIframe();
                     }
                 });
                 requestStorageAccess();
@@ -105,7 +106,7 @@
         // });
 
         window.onload = () => {
-            loadIframe();
+            
         }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
