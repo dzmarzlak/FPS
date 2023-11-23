@@ -17,13 +17,6 @@
         }
 
         function getCookies() {
-            navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
-                if (res.state === 'granted') {
-                    console.log('granted');
-                } else if (res.state === 'prompt') {
-                    console.log('no access');
-                }
-            });
             document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'getCookies' }, '*');
         }
 
@@ -36,21 +29,11 @@
         }
 
         function clearOTCookies() {
-            console.log('clear');
-            // const script = document.querySelector('[data-domain-script]');
-            // document.head.removeChild(script);
             OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
         }
 
         function onOTLoad() {
             if (!loaded) {
-                window.OneTrust.OnConsentChanged(function(event) {
-                    console.log(event);
-                    if (event.detail) {
-                        grantAccess();
-                        loadIframe();
-                    }
-                });
                 requestStorageAccess();
                 loaded = true;
             }
@@ -58,70 +41,46 @@
 
         function requestStorageAccess() {
             navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
-                console.log(res, 'res');
                 if (res.state === 'granted') {
                     console.log('granted');
-                    // document.requestStorageAccessFor(root);
                     loadIframe();
                 } else if (res.state === 'prompt') {
-                    // window.addEventListener('click', () => {document.requestStorageAccessFor(root);});
                     console.log('no access');
-                    if (checkOTCookies()) {
-                    //     clearOTCookies();
-                    //     OneTrust.InitializeBanner();
-                    //     OneTrust.LoadBanner();
+                    if (!checkOTCookies()) {
+                        window.OneTrust.OnConsentChanged(function(event) {
+                            if (event.detail) {
+                                grantAccess();
+                                loadIframe();
+                            }
+                        });
+                    } else {
+                        console.log('OT cookies exists');
+                        // clearOTCookies();
+                        // OneTrust.InitialieBanner();
+                        // OneTrust.LoadBannr();
                     }
                 }
-                // window.addEventListener('click', handleClick);
-                // const script = document.createElement('script');
-                // script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js'
-                // script.setAttribute('data-document-language', 'true');
-                // script.setAttribute('data-domain-script', '1310db55-16a0-4029-aee5-9253581c6a12-test');
-                // console.log('append script');
-                // document.head.appendChild(script);
             });
         }
 
-        // function handleClick(event) {
-        //     if (event.target.id === 'onetrust-accept-btn-handler') {
-        //         console.log('clicked');
-        //         // grantAccess();
-        //         window.removeEventListener('click', handleClick);
-        //     }
-        // }
-
-        async function grantAccess() {
+        function grantAccess() {
             console.log('request for access');
-            const res = await document.requestStorageAccessFor(root);
+            const res = document.requestStorageAccessFor(root);
         }
 
         window.addEventListener('message', (event) => {
             console.log('Received shared cookies:', event.data);
         });
-
-        // window.addEventListener('mouseup', (event) => {
-        //     console.log(event, 'mouseup');
-        //     // document.requestStorageAccessFor(root);
-        // });
-
-        // window.addEventListener('click', (event) => {
-        //     console.log(event, 'click');
-        // });
-
-        window.onload = () => {
-            
-        }
     </script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
-<script type="text/javascript">
-function OptanonWrapper() {
-    onOTLoad();
-}
-</script>
-<!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
+    <script type="text/javascript">
+        function OptanonWrapper() {
+            onOTLoad();
+        }
+    </script>
+    <!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
 </head>
 <body>
-    <!-- <button onclick="grantAccess()">Grant access</button> -->
 </body>
 </html>
