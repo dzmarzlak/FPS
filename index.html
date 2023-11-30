@@ -7,6 +7,7 @@
         const root = 'https://stage-wake.tvn.pl/static/iframe/iframe-v1.html';
         const OTCookieNames = ['OptanonConsent', 'eupubconsent-v2', 'OptanonAlertBoxClosed'];
         let loaded = false;
+        let identityAdapter;
 
         function loadIframe() {
             const iframe = document.createElement('iframe');
@@ -49,8 +50,7 @@
                     if (!checkOTCookies()) {
                         window.OneTrust.OnConsentChanged(function(event) {
                             if (event.detail) {
-                                grantAccess();
-                                loadIframe();
+                                identityAdapter.id.requestForStorageAccess();
                             }
                         });
                     } else {
@@ -74,7 +74,7 @@
 
         function onWakeLoad() {
             const applicationAdapter = window.wake.allocateNewAdapter({ service: 'application', api: "1.0", id: "mainApplication" });
-            const identityAdapter = window.wake.allocateNewAdapter({ service: 'identity', api: "1.0", id: "mainApplication" });
+            identityAdapter = window.wake.allocateNewAdapter({ service: 'identity', api: "1.0", id: "mainApplication" });
             
             const environementServiceSetup = {
             service: 'environment',
@@ -92,8 +92,6 @@
             
             identityAdapter.id.onChange = (targets) => console.log(`onEvent | targets: ${targets}`);
             identityAdapter.id.setup([ environementServiceSetup ]);
-            identityAdapter.id.requestForStorageAccess();
-            
             
             setTimeout(() => console.log("### all IDs", identityAdapter.id.getAll()), 2000);
             
