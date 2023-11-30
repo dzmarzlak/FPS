@@ -85,7 +85,7 @@
         }
 
         function setCookie(name, value) {
-            identityAdapter.id.setCookie(name, value);
+            identityAdapter.id.setCookie({name, value});
         }
 
         function onWakeLoad() {
