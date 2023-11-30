@@ -9,72 +9,84 @@
         let loaded = false;
         let identityAdapter;
 
-        function loadIframe() {
-            const iframe = document.createElement('iframe');
-            iframe.id = 'fps';
-            iframe.setAttribute('src', root);
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-        }
+        // function loadIframe() {
+        //     const iframe = document.createElement('iframe');
+        //     iframe.id = 'fps';
+        //     iframe.setAttribute('src', root);
+        //     iframe.style.display = 'none';
+        //     document.body.appendChild(iframe);
+        // }
+
+        // function getCookies() {
+        //     document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'getCookies' }, '*');
+        // }
+
+        // function setCookie(name, value) {
+        //     document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
+        // }
+
+        // function checkOTCookies() {
+        //     return document.cookie.split('; ').filter(cookie => OTCookieNames.some(name => cookie.startsWith(name))).length > 1;
+        // }
+
+        // function clearOTCookies() {
+        //     OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
+        // }
+
+        // function onOTLoad() {
+        //     if (!loaded) {
+        //         window.OneTrust.OnConsentChanged(function(event) {
+        //             if (event.detail) {
+        //                 identityAdapter.id.requestForStorageAccess();
+        //             }
+        //         });
+        //         loaded = true;
+        //     }
+        // }
+
+        // function requestStorageAccess() {
+        //     navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
+        //         if (res.state === 'granted') {
+        //             console.log('granted');
+        //             loadIframe();
+        //         } else if (res.state === 'prompt') {
+        //             console.log('no access');
+        //             if (!checkOTCookies()) {
+        //                 window.OneTrust.OnConsentChanged(function(event) {
+        //                     if (event.detail) {
+        //                         identityAdapter.id.requestForStorageAccess();
+        //                     }
+        //                 });
+        //             } else {
+        //                 console.log('OT cookies exists');
+        //                 // clearOTCookies();
+        //                 // OneTrust.InitialieBanner();
+        //                 // OneTrust.LoadBannr();
+        //             }
+        //         }
+        //     });
+        // }
+
+        // function grantAccess() {
+        //     console.log('request for access');
+        //     const res = document.requestStorageAccessFor(root);
+        // }
+
+        // window.addEventListener('message', (event) => {
+        //     console.log('Received shared cookies:', event.data);
+        // });
+
+        window.addEventListener('click', (event) => {
+            identityAdapter.id.requestForStorageAccess();
+        });
 
         function getCookies() {
-            document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'getCookies' }, '*');
+            console.log(identityAdapter.id.getCookies());
         }
 
         function setCookie(name, value) {
-            document.querySelector('iframe#fps').contentWindow.postMessage({ command: 'setCookie', name, value }, '*');
+            identityAdapter.id.setCookie(name, value);
         }
-
-        function checkOTCookies() {
-            return document.cookie.split('; ').filter(cookie => OTCookieNames.some(name => cookie.startsWith(name))).length > 1;
-        }
-
-        function clearOTCookies() {
-            OTCookieNames.forEach(name => document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`);
-        }
-
-        function onOTLoad() {
-            if (!loaded) {
-                window.OneTrust.OnConsentChanged(function(event) {
-                    if (event.detail) {
-                        identityAdapter.id.requestForStorageAccess();
-                    }
-                });
-                loaded = true;
-            }
-        }
-
-        function requestStorageAccess() {
-            navigator.permissions.query({ name: 'top-level-storage-access', requestedOrigin: root }).then(res => {
-                if (res.state === 'granted') {
-                    console.log('granted');
-                    loadIframe();
-                } else if (res.state === 'prompt') {
-                    console.log('no access');
-                    if (!checkOTCookies()) {
-                        window.OneTrust.OnConsentChanged(function(event) {
-                            if (event.detail) {
-                                identityAdapter.id.requestForStorageAccess();
-                            }
-                        });
-                    } else {
-                        console.log('OT cookies exists');
-                        // clearOTCookies();
-                        // OneTrust.InitialieBanner();
-                        // OneTrust.LoadBannr();
-                    }
-                }
-            });
-        }
-
-        function grantAccess() {
-            console.log('request for access');
-            const res = document.requestStorageAccessFor(root);
-        }
-
-        window.addEventListener('message', (event) => {
-            console.log('Received shared cookies:', event.data);
-        });
 
         function onWakeLoad() {
             const applicationAdapter = window.wake.allocateNewAdapter({ service: 'application', api: "1.0", id: "mainApplication" });
@@ -107,7 +119,7 @@
     <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
     <script type="text/javascript">
         function OptanonWrapper() {
-            onOTLoad();
+            // onOTLoad();
         }
     </script>
     <!-- OneTrust Cookies Consent Notice end for tvn24.pl -->
