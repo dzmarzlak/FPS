@@ -80,8 +80,8 @@
             identityAdapter.id.requestForStorageAccess();
         });
 
-        function getCookies() {
-            console.log(identityAdapter.id.getCookies());
+        async function getCookies() {
+            console.log(await identityAdapter.id.getCookies());
         }
 
         function setCookie(name, value) {
