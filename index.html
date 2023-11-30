@@ -95,13 +95,12 @@
             identityAdapter.id.requestForStorageAccess();
             
             
-            setTimeout(() => console.log(`on get | key: ${name}, value: ${identityAdapter.id.get(name)}`), 2000);
             setTimeout(() => console.log("### all IDs", identityAdapter.id.getAll()), 2000);
             
             applicationAdapter.event.endCriticalSection();
         }
     </script>
-    <script src="http://localhost:3337/app.js" onload="onWakeLoad()" />
+    <script src="http://localhost:3337/app.js" onload="onWakeLoad()"></script>
     <!-- OneTrust Cookies Consent Notice start for tvn24.pl -->
     <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="1310db55-16a0-4029-aee5-9253581c6a12-test" ></script>
     <script type="text/javascript">
