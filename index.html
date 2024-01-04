@@ -76,15 +76,16 @@
         //     console.log('Received shared cookies:', event.data);
         // });
 
-        window.addEventListener('click', (event) => {
-            document.requestStorageAccessFor(root)
-                .then(
-                    () => {
-                       console.log('granted');
-                       identityAdapter.id.requestForStorageAccess();
-                    },
-                    () => console.log('denied'))
-                .catch((error) => console.log(error, 'Error request access'));
+        window.addEventListener('click', async (event) => {
+            const state = await document.requestStorageAccessFor(rwsIframeUrl)
+              .then(
+                () => 'granted',
+                () => 'denied')
+              .catch((error) => {
+                console.log(error);
+                return 'error';
+              });
+             identityAdapter.id.storageAccessChanged(state);
         });
 
         async function getCookies() {
