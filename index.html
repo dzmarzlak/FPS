@@ -77,7 +77,7 @@
         // });
 
         window.addEventListener('click', async (event) => {
-            const state = await document.requestStorageAccessFor(rwsIframeUrl)
+            const state = await document.requestStorageAccessFor('https://stage-wake.tvn.pl/static/iframe/iframe-v1.html')
               .then(
                 () => 'granted',
                 () => 'denied')
